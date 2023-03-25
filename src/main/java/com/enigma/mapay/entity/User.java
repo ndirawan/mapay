@@ -24,8 +24,12 @@ public class User {
     private String email;
     @Column(unique = true)
     private String phoneNumb;
+
+    private String fullName;
     private String address;
     private Date birthDate;
 //    private String image;
     private Integer status;
+    private Integer balance;
+    private Integer mapay_point;
 }
