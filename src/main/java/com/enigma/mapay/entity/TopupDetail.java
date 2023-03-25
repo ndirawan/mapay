@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "trx_topup_detail")
@@ -16,14 +14,16 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 public class TopupDetail {
-
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String topupDetailId;
 
     private Integer topupBalance;
     private String methode;
     @ManyToOne
     @JoinColumn(name = "topup_id")
-    @JsonIgnoreProperties("PurchaseDetail")
+    @JsonIgnoreProperties("TopupDetail")
     private Topup topup;
 
     private String status = "pending";

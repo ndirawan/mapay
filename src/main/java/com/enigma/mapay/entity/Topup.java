@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +17,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Topup {
+    @Id
+    @Column(name="topup_id")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String topupId;
 
     private Date topupDate;
@@ -26,6 +30,6 @@ public class Topup {
     private User user;
 
     @OneToMany(mappedBy = "topup")
-    @JsonIgnoreProperties("TopupDetail")
+    @JsonIgnoreProperties("topup")
     private List<TopupDetail> topupDetails = new ArrayList<>();
 }

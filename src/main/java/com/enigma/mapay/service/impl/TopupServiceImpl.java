@@ -38,16 +38,17 @@ public class TopupServiceImpl implements TopupService {
         User user = userService.getUserById(topup.getUser().getId());
         topup.setUser(user);
         Topup result = topupRepository.save(topup);
-        Integer totalPrice = 0; // inisialisasi nilai totalPrice di luar loop
         for(TopupDetail td : topup.getTopupDetails()){
             td.setTopupBalance(td.getTopupBalance());
 //            update saldo user
             user.setBalance(user.getBalance() + td.getTopupBalance());
             td.setMethode(td.getMethode());
             td.setStatus(td.getStatus());
+            td.setTopup(topup);
             userService.saveUser(user);
             topupDetailService.saveTopupDetail(td);
         }
+
         return result;
     }
 

@@ -18,13 +18,13 @@ public class TopupController {
     TopupDetailService topupDetailService;
     TopupService topupService;
 
-    @PostMapping("")
-    public Topup savePurchase(@RequestBody Topup topup){
+    @PostMapping
+    public Topup saveTopup(@RequestBody Topup topup){
         return topupService.saveTopup(topup);
     }
 
-    @GetMapping("")
-    public List<Topup> getAllPurchase(){
+    @GetMapping
+    public List<Topup> getAllTopup(){
         return topupService.getAllTopUp();
     }
 
