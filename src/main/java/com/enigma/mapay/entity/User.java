@@ -17,6 +17,7 @@ import java.util.Date;
 @Setter
 public class User {
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
@@ -24,8 +25,12 @@ public class User {
     private String email;
     @Column(unique = true)
     private String phoneNumb;
+
+    private String fullName;
     private String address;
     private Date birthDate;
 //    private String image;
     private Integer status;
+    private Integer balance = 0;
+    private Integer mapay_point = 0;
 }
