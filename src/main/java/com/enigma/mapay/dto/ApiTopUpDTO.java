@@ -1,4 +1,4 @@
-package com.enigma.mapay.transactionApi.dto;
+package com.enigma.mapay.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TopUpDTO {
+public class ApiTopUpDTO {
     @JsonProperty("ref_id")
     private String refId;
     @JsonProperty("status")

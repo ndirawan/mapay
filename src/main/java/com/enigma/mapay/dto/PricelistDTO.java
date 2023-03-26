@@ -1,4 +1,4 @@
-package com.enigma.mapay.transactionApi.dto;
+package com.enigma.mapay.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

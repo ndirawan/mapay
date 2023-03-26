@@ -1,9 +1,8 @@
-package com.enigma.mapay.transactionApi;
+package com.enigma.mapay.config;
 
-import com.enigma.mapay.transactionApi.request.ApiRequest;
+import com.enigma.mapay.apiTransaction.request.ApiRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;

@@ -1,4 +1,4 @@
-package com.enigma.mapay.transactionApi.utils;
+package com.enigma.mapay.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,13 +1,13 @@
-package com.enigma.mapay.transactionApi.service.impl;
+package com.enigma.mapay.service.impl;
 
-import com.enigma.mapay.transactionApi.constant.ApiUrlConstants;
-import com.enigma.mapay.transactionApi.constant.Commands;
-import com.enigma.mapay.transactionApi.constant.Status;
-import com.enigma.mapay.transactionApi.request.ApiRequest;
-import com.enigma.mapay.transactionApi.response.PricelistResponse;
-import com.enigma.mapay.transactionApi.response.TopUpResponse;
-import com.enigma.mapay.transactionApi.service.ApiService;
-import com.enigma.mapay.transactionApi.utils.SignUtils;
+import com.enigma.mapay.utils.constant.ApiUrlConstant;
+import com.enigma.mapay.utils.constant.Commands;
+import com.enigma.mapay.utils.constant.Status;
+import com.enigma.mapay.apiTransaction.request.ApiRequest;
+import com.enigma.mapay.apiTransaction.response.PricelistResponse;
+import com.enigma.mapay.apiTransaction.response.TopUpResponse;
+import com.enigma.mapay.service.ApiService;
+import com.enigma.mapay.utils.SignUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class ApiSeviceImpl implements ApiService {
         ApiRequest apiRequest = createApi(Commands.TOP_UP, refId);
         apiRequest.setPulsaCode(pulsaCode);
         apiRequest.setHp(noHp);
-        String url = ApiUrlConstants.URL_API;
+        String url = ApiUrlConstant.URL_API;
         HttpEntity<ApiRequest> request = new HttpEntity<>(apiRequest, headers);
 
         return restTemplate.exchange(url, HttpMethod.POST, request, TopUpResponse.class);
@@ -49,7 +49,7 @@ public class ApiSeviceImpl implements ApiService {
     public ResponseEntity<PricelistResponse> pricelist(String type, String operator) {
         ApiRequest apiRequest = createApi(Commands.PRICELIST, "pl");
         apiRequest.setStatus(Status.STATUS_ACTIVE);
-        String url = ApiUrlConstants.URL_API + "/" + type + "/" + operator;
+        String url = ApiUrlConstant.URL_API + "/" + type + "/" + operator;
         HttpEntity<ApiRequest> requestEntity = new HttpEntity<>(apiRequest, headers);
 
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, PricelistResponse.class);
@@ -59,7 +59,7 @@ public class ApiSeviceImpl implements ApiService {
     @Override
     public ResponseEntity<TopUpResponse> topUpStatus(String refId) {
         ApiRequest apiRequest = createApi(Commands.INQUIRY, refId);
-        String url = ApiUrlConstants.URL_API;
+        String url = ApiUrlConstant.URL_API;
         HttpEntity<ApiRequest> request = new HttpEntity<>(apiRequest, headers);
 
         return restTemplate.exchange(url, HttpMethod.POST, request, TopUpResponse.class);

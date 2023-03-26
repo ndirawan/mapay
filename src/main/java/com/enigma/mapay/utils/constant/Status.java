@@ -1,4 +1,4 @@
-package com.enigma.mapay.transactionApi.constant;
+package com.enigma.mapay.utils.constant;
 
 public class Status {
     public final static String STATUS_ALL = "all";

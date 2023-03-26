@@ -1,8 +1,8 @@
 package com.enigma.mapay.controller;
 
-import com.enigma.mapay.transactionApi.response.PricelistResponse;
-import com.enigma.mapay.transactionApi.response.TopUpResponse;
-import com.enigma.mapay.transactionApi.service.ApiService;
+import com.enigma.mapay.apiTransaction.response.PricelistResponse;
+import com.enigma.mapay.apiTransaction.response.TopUpResponse;
+import com.enigma.mapay.service.ApiService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
-package com.enigma.mapay.transactionApi.service;
+package com.enigma.mapay.service;
 
-import com.enigma.mapay.transactionApi.response.PricelistResponse;
-import com.enigma.mapay.transactionApi.response.TopUpResponse;
+import com.enigma.mapay.apiTransaction.response.PricelistResponse;
+import com.enigma.mapay.apiTransaction.response.TopUpResponse;
 import org.springframework.http.ResponseEntity;
 
 public interface ApiService {

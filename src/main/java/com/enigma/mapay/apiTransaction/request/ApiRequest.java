@@ -1,8 +1,7 @@
-package com.enigma.mapay.transactionApi.request;
+package com.enigma.mapay.apiTransaction.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 
 @Getter
 @Setter
