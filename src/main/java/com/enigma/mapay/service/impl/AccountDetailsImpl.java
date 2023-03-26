@@ -39,7 +39,7 @@ public class AccountDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return phoneNumber;
     }
 
     @Override

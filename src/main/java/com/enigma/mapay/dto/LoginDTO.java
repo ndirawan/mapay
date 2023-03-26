@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class LoginDTO {
-    private String username;
+    private String phoneNumber;
     private List<String> roles;
     private String token;
 
     public LoginDTO(AccountDetailsImpl user, String token) {
-        this.username = user.getUsername();
+        this.phoneNumber = user.getUsername();
         this.roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         this.token = token;
