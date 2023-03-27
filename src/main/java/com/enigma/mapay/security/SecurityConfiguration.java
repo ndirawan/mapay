@@ -45,7 +45,9 @@ public class SecurityConfiguration {
                         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                         .authorizeRequests()
                         .antMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .antMatchers("/upload").permitAll()
+//                      .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                         .and().addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
                 return http.build();
