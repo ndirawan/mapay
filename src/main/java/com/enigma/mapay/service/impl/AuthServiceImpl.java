@@ -30,7 +30,6 @@ public class AuthServiceImpl implements AuthService {
     private JwtUtils jwtUtils;
     private RoleService roleService;
 
-
     @Override
     public AccountDTO register(AuthRequest account) {
         Role role = roleService.getOrSave(ERole.ROLE_USER);
