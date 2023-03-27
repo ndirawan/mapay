@@ -9,29 +9,24 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "trx_topup")
 @Getter
 @Setter
+@Table(name = "trx_buy_pulsa")
 @NoArgsConstructor
-public class Topup {
+public class BuyPulsa {
     @Id
-    @Column(name="topup_id")
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     @CreationTimestamp
-    private LocalDateTime date;
+    private LocalDateTime buyDate;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "topup_detail_id")
-    @JsonIgnoreProperties("topup")
-    private TopupDetail topupDetail;
-
+    @JoinColumn(name = "buy_pulsa_detail_id")
+    private BuyPulsaDetail buyDetail;
 }

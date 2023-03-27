@@ -29,12 +29,3 @@ public class PricelistDTO {
     private String masaaktif;
 
 }
-//"status"
-//"icon_url"
-//"pulsa_code"
-//"pulsa_op
-//"pulsa_nominal"
-//"pulsa_details"
-//"pulsa_price"
-//"pulsa_type"
-//"masaaktif"

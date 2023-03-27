@@ -11,5 +11,5 @@ public interface TopupService {
 
     List<Topup> getAllTopUp();
 
-    TopupDTO getTopupById(String id) throws NoSuchFieldException;
+    Topup getTopupById(String id);
 }

@@ -2,7 +2,10 @@ package com.enigma.mapay.controller;
 
 import com.enigma.mapay.apiTransaction.response.PricelistResponse;
 import com.enigma.mapay.apiTransaction.response.TopUpResponse;
+import com.enigma.mapay.entity.BuyPulsaDetail;
 import com.enigma.mapay.service.ApiService;
+import com.enigma.mapay.service.BuyPulsaDetailService;
+import com.enigma.mapay.service.BuyPulsaService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +15,7 @@ public class ApiController {
     ApiService apiService;
 
     public ApiController(ApiService apiService) {
-        this.apiService = apiService;
+        this.apiService = apiService;;
     }
 
     @PostMapping()
@@ -28,6 +31,7 @@ public class ApiController {
     }
     @PostMapping("/topup/{refId}")
     public ResponseEntity<TopUpResponse> topUp(@PathVariable String refId){
+
         return apiService.topUpStatus(refId);
     }
 }

@@ -25,7 +25,6 @@ public class User {
     private String email;
     @Column(unique = true)
     private String phoneNumb;
-
     private String fullName;
     private String address;
     private Date birthDate;

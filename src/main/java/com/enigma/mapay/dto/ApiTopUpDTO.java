@@ -14,13 +14,13 @@ public class ApiTopUpDTO {
     @JsonProperty("ref_id")
     private String refId;
     @JsonProperty("status")
-    private String Integer;
+    private String status;
     @JsonProperty("code")
     private String code;
     @JsonProperty("hp")
     private String hp;
     @JsonProperty("price")
-    private Long price;
+    private Integer price;
     @JsonProperty("message")
     private String message;
     @JsonProperty("sn")
@@ -28,9 +28,9 @@ public class ApiTopUpDTO {
     @JsonProperty("pin")
     private String pin;
     @JsonProperty("balance")
-    private Long balance;
+    private Integer balance;
     @JsonProperty("tr_id")
-    private Long trId;
+    private Integer trId;
     @JsonProperty("rc")
     private String rc;
 

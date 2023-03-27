@@ -1,5 +1,6 @@
 package com.enigma.mapay.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,21 +10,17 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "trx_topup_detail")
+@Table(name = "trx_buy_pulsa_detail")
 @Getter
 @Setter
 @NoArgsConstructor
-public class TopupDetail {
+public class BuyPulsaDetail {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
-    private Integer amount;
-    private String methode;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "topup_id")
-    @JsonIgnoreProperties("topupDetail")
-    private Topup topup;
+    private String type;
+    private String sn;
+    private String pulsaCode;
     private String status;
-
 }

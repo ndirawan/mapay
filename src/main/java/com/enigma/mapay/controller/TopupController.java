@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TopupController {
 
-    TopupDetailService topupDetailService;
     TopupService topupService;
 
     @PostMapping
@@ -29,7 +28,7 @@ public class TopupController {
     }
 
     @GetMapping("/{id}")
-    public TopupDTO findById(@PathVariable String id) throws NoSuchFieldException {
+    public Topup findById(@PathVariable String id){
         return topupService.getTopupById(id);
     }
 }

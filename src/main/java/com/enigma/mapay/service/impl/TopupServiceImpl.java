@@ -34,54 +34,25 @@ public class TopupServiceImpl implements TopupService {
 
     @Override
     public Topup saveTopup(Topup topup) {
-        topup.setTopupDate(Date.valueOf(LocalDate.now()));
         User user = userService.getUserById(topup.getUser().getId());
+        user.setBalance(user.getBalance() + topup.getTopupDetail().getAmount());
+
         topup.setUser(user);
+        TopupDetail td = topupDetailService.saveTopupDetail(topup.getTopupDetail());
         Topup result = topupRepository.save(topup);
-        for(TopupDetail td : topup.getTopupDetails()){
-            td.setTopupBalance(td.getTopupBalance());
-//            update saldo user
-            user.setBalance(user.getBalance() + td.getTopupBalance());
-            td.setMethode(td.getMethode());
-            td.setStatus(td.getStatus());
-            td.setTopup(topup);
-            userService.saveUser(user);
-            topupDetailService.saveTopupDetail(td);
-        }
+        td.setTopup(result);
+
+        topupDetailService.saveTopupDetail(td);
 
         return result;
     }
-
     @Override
     public List<Topup> getAllTopUp() {
         return topupRepository.findAll();
     }
 
     @Override
-    public TopupDTO getTopupById(String id) throws NoSuchFieldException {
-        if (topupRepository.findById(id).isPresent()) {
-            Topup topup = topupRepository.findById(id).get();
-            TopupDTO topupDTO = new TopupDTO();
-            topupDTO.setTopupId(topup.getTopupId());
-            topupDTO.setUserName(topup.getUser().getFullName());
-            topupDTO.setTopupDate(topup.getTopupDate());
-            List<TopupDetailDTO> topupDetailDTOS = new ArrayList<>();
-            Integer total = 0;
-            for (TopupDetail td : topup.getTopupDetails()) {
-                TopupDetailDTO topupDetailsDTO = new TopupDetailDTO();
-                topupDetailsDTO.setMethod(td.getMethode());
-                topupDetailsDTO.setSaldoTopup(td.getTopupBalance());
-                topupDetailsDTO.setStatus(td.getStatus());
-                topupDetailsDTO.setPpn((td.getTopupBalance() * 10)/100);
-                topupDetailsDTO.setSubTotal(topupDetailsDTO.getSaldoTopup() + topupDetailsDTO.getPpn());
-                total += topupDetailsDTO.getSubTotal();
-                topupDetailDTOS.add(topupDetailsDTO);
-            }
-
-            topupDTO.setTotal(total);
-            topupDTO.setTopupDetailDTOS(topupDetailDTOS);
-
-            return topupDTO;
-        }else throw new NoSuchFieldException();
+    public Topup getTopupById(String id) {
+        return topupRepository.findById(id).get();
     }
 }
