@@ -29,7 +29,7 @@ public class User {
     private String address;
     private LocalDate birthDate;
     @Column(nullable = true)
-    private String image;
+    private String profilePicture;
     private Integer status;
     private Integer balance = 0;
     private Integer mapay_point = 0;
