@@ -5,7 +5,9 @@ import com.enigma.mapay.entity.User;
 import com.enigma.mapay.service.UserService;
 import com.enigma.mapay.utils.constant.ApiUrlConstant;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(ApiUrlConstant.USER_PATH)
@@ -44,7 +48,22 @@ public class UserController {
         user.setBirthDate(birthdate);
         user.setStatus(status);
         if (photo != null && !photo.isEmpty()) {
-            String fileName = StringUtils.cleanPath(photo.getOriginalFilename());
+            // Check file type
+            String fileType = photo.getContentType();
+            if (!fileType.equals("image/png") && !fileType.equals("image/jpeg")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+            // Generate random characters
+            String randomChars = UUID.randomUUID().toString().substring(0, 5);
+            // Get current date
+            LocalDate currentDate = LocalDate.now();
+            // Construct file name with format: yyyyMMdd_name_randomChars
+            String fileName = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "_" + name + "_" + randomChars;
+            // Get extension of uploaded file
+            String fileExtension = FilenameUtils.getExtension(photo.getOriginalFilename());
+            // Add extension to file name
+            fileName += "." + fileExtension;
+            // Get upload path
             Path uploadPath = Paths.get(UPLOAD_DIR);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
