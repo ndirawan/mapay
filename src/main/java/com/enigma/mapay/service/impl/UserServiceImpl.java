@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByPhoneNumb(String phone) {
+        return userRepository.findByPhoneNumb(phone);
+    }
+
+    @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
