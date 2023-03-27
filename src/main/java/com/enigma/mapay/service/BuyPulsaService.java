@@ -2,7 +2,9 @@ package com.enigma.mapay.service;
 
 import com.enigma.mapay.entity.BuyPulsa;
 
+import javax.security.auth.callback.Callback;
+
 public interface BuyPulsaService {
-    BuyPulsa savePulsa(BuyPulsa buyPulsa);
+    void savePulsa(BuyPulsa buyPulsa, CallbackApi callbackApi) throws InterruptedException;
     BuyPulsa findId(String id);
 }

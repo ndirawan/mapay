@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ApiTopUpDTO {
+public class ApiDTO {
     @JsonProperty("ref_id")
     private String refId;
     @JsonProperty("status")

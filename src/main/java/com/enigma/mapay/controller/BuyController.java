@@ -1,10 +1,13 @@
 package com.enigma.mapay.controller;
 
+import com.enigma.mapay.dto.ApiDTO;
 import com.enigma.mapay.entity.BuyPulsa;
 import com.enigma.mapay.entity.BuyPulsaDetail;
 import com.enigma.mapay.service.ApiService;
 import com.enigma.mapay.service.BuyPulsaDetailService;
 import com.enigma.mapay.service.BuyPulsaService;
+import com.enigma.mapay.service.CallbackApi;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +27,25 @@ public class BuyController {
     }
 
     @PostMapping
-    public BuyPulsa buyPulsa(@RequestBody BuyPulsa buyPulsa) throws Exception{
-        return service.savePulsa(buyPulsa);
+    public ResponseEntity<ApiDTO> buyPulsa(@RequestBody BuyPulsa buyPulsa) throws Exception{
+
+        service.savePulsa(buyPulsa, (BuyPulsa bp) -> {
+            while (true) {
+                ApiDTO apiDTO = apiService.topUpStatus(bp.getId()).getBody().getApiDTO();
+                if (apiDTO.getStatus().equals("1") || apiDTO.getStatus().equals("2")) {
+
+                    BuyPulsaDetail buyPulsaDetail = bp.getBuyDetail();
+                    buyPulsaDetail.setStatus(apiDTO.getMessage());
+                    buyPulsaDetail.setSn(apiDTO.getSn());
+
+                    break;
+                } else {
+                    Thread.sleep(2000);
+                }
+            }
+        });
+        ApiDTO status = apiService.topUpStatus(buyPulsa.getId()).getBody().getApiDTO();
+        return ResponseEntity.ok(status);
     }
 
     @PostMapping("/d")

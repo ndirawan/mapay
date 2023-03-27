@@ -29,4 +29,5 @@ public class BuyPulsa {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "buy_pulsa_detail_id")
     private BuyPulsaDetail buyDetail;
+    private String status;
 }

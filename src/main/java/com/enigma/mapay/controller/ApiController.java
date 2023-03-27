@@ -2,6 +2,7 @@ package com.enigma.mapay.controller;
 
 import com.enigma.mapay.apiTransaction.response.PricelistResponse;
 import com.enigma.mapay.apiTransaction.response.TopUpResponse;
+import com.enigma.mapay.entity.BuyPulsa;
 import com.enigma.mapay.entity.BuyPulsaDetail;
 import com.enigma.mapay.service.ApiService;
 import com.enigma.mapay.service.BuyPulsaDetailService;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api")
 public class ApiController {
     ApiService apiService;
+    BuyPulsaService buyPulsaService;
+    BuyPulsaDetailService detailService;
 
-    public ApiController(ApiService apiService) {
-        this.apiService = apiService;;
+    public ApiController(ApiService apiService, BuyPulsaService buyPulsaService, BuyPulsaDetailService detailService) {
+        this.apiService = apiService;
+        this.buyPulsaService = buyPulsaService;
+        this.detailService = detailService;
     }
 
     @PostMapping()
@@ -31,7 +36,6 @@ public class ApiController {
     }
     @PostMapping("/topup/{refId}")
     public ResponseEntity<TopUpResponse> topUp(@PathVariable String refId){
-
         return apiService.topUpStatus(refId);
     }
 }
