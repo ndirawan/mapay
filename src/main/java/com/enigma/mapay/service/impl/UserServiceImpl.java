@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+
         return userRepository.save(user);
     }
 
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(String id) {
         return userRepository.findById(id).get();
+    }
+
+    @Override
+    public User getUserByPhoneNumb(String phone) {
+        return userRepository.findByPhoneNumb(phone);
     }
 
     @Override

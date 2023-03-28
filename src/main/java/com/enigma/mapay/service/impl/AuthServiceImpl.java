@@ -3,6 +3,7 @@ package com.enigma.mapay.service.impl;
 import com.enigma.mapay.dto.*;
 import com.enigma.mapay.entity.Account;
 import com.enigma.mapay.entity.Role;
+import com.enigma.mapay.entity.User;
 import com.enigma.mapay.repository.AccountRepository;
 import com.enigma.mapay.security.JwtUtils;
 import com.enigma.mapay.service.AuthService;
@@ -29,6 +30,8 @@ public class AuthServiceImpl implements AuthService {
     private PasswordEncoder passwordEncoder;
     private JwtUtils jwtUtils;
     private RoleService roleService;
+
+
 
     @Override
     public AccountDTO register(AuthRequest account) {
