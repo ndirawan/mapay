@@ -5,8 +5,8 @@ import com.enigma.mapay.repository.TransferRepository;
 import com.enigma.mapay.service.TransferService;
 import com.enigma.mapay.service.UserService;
 import com.enigma.mapay.utils.exception.DataNotFoundException;
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +20,7 @@ public class TransferServiceImpl implements TransferService {
 
     TransferDetailService transferDetailService;
     @Override
+
     public Transfer saveTransfer(Transfer transfer) {
         User sender = userService.getUserById(transfer.getUser().getId());
         User receiver = userService.getUserByPhoneNumb(transfer.getTransferDetail().getTransferTo());
@@ -63,11 +64,13 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
+
     public List<Transfer> getAllTransfer() {
         return transferRepository.findAll();
     }
 
     @Override
+
     public Transfer getTransferById(String id) {
         return transferRepository.findById(id).get();
     }
