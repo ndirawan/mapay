@@ -6,4 +6,5 @@ public class ApiUrlConstant {
     public static final String TOPUP_PATH = "/transaction/topup";
     public static final String TRANSFER_PATH = "/transaction/transfer";
     public static final String WITHDRAW_PATH = "/transaction/withdraw";
+    public static final String SPLIT_BILL_PATH = "/transaction/split";
 }
