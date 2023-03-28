@@ -1,9 +1,11 @@
 package com.enigma.mapay.service.impl;
 
+import com.enigma.mapay.apiTransaction.response.TopUpResponse;
 import com.enigma.mapay.entity.BuyPulsa;
 import com.enigma.mapay.entity.User;
 import com.enigma.mapay.repository.BuyPulsaRepository;
 import com.enigma.mapay.service.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ public class BuyPulsaImpl implements BuyPulsaService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Async
     public void savePulsa(BuyPulsa buyPulsa, CallbackApi callbackApi) throws InterruptedException {
         User user = userService.getUserById(buyPulsa.getUser().getId());
         buyPulsa.setUser(user);

@@ -22,5 +22,6 @@ public class BuyPulsaDetail {
     private String type;
     private String sn;
     private String pulsaCode;
+    private Integer price;
     private String status;
 }
