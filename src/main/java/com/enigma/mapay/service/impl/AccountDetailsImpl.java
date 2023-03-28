@@ -1,6 +1,9 @@
 package com.enigma.mapay.service.impl;
 
 import com.enigma.mapay.entity.Account;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +12,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Setter
+@NoArgsConstructor
 public class AccountDetailsImpl implements UserDetails {
 
     private String id;
