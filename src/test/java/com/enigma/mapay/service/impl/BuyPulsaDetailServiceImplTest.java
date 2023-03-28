@@ -21,7 +21,7 @@ class BuyPulsaDetailServiceImplTest {
     private BuyPulsaDetail buyPulsaDetail;
     @BeforeEach
     void setup() {
-        buyPulsaDetail = new BuyPulsaDetail("01", "tipe", "sn", "01", "berhasil");
+        buyPulsaDetail = new BuyPulsaDetail();
     }
 
     @AfterEach

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -37,7 +38,7 @@ public class UserController {
                                            @RequestParam("phoneNumb") String phone,
                                            @RequestParam("address") String address,
                                            @RequestParam("status") Integer status,
-                                           @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthdate,
+                                           @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate,
                                            @RequestParam(value = "profilePicture", required = false) MultipartFile photo)throws IOException {
 
         User user = new User();

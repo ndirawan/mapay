@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -27,7 +28,7 @@ public class User {
     private String phoneNumb;
     private String fullName;
     private String address;
-    private LocalDate birthDate;
+    private Date birthDate;
     @Column(nullable = true)
     private String profilePicture;
     private Integer status;
