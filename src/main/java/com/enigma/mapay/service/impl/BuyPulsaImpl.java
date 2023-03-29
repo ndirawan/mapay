@@ -52,7 +52,7 @@ public class BuyPulsaImpl implements BuyPulsaService {
             }
             TopUpResponse response = mobilePulsaService.topUp(
                     buyPulsa.getBuyDetail().getPulsaCode(),
-                    user.getPhoneNumb(),
+                    user.getPhoneNumber(),
                     result.getId()).getBody();
             detail.setPrice(response.getBuyPulsaDTO().getPrice());
             detail.setStatus(response.getBuyPulsaDTO().getMessage());

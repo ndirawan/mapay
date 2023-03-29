@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @SentrySpan
     public User getUserByPhoneNumb(String phone) {
-        return userRepository.findByPhoneNumb(phone);
+        return userRepository.findByPhoneNumber(phone).get();
     }
 
     @Override

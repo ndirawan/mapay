@@ -9,13 +9,15 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "mst_user")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @Column(name = "user_id")
@@ -25,11 +27,17 @@ public class User {
     @Column(unique = true)
     private String email;
     @Column(unique = true)
-    private String phoneNumb;
+    private String phoneNumber;
     private String fullName;
     private String address;
     private Date birthDate;
     private Integer status;
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "trx_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    List<Role> roles;
     private Integer balance = 0;
     private Integer mapay_point = 0;
 

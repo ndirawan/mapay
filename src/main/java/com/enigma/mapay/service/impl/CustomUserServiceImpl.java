@@ -1,7 +1,7 @@
 package com.enigma.mapay.service.impl;
 
-import com.enigma.mapay.entity.Account;
-import com.enigma.mapay.repository.AccountRepository;
+import com.enigma.mapay.entity.User;
+import com.enigma.mapay.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -11,15 +11,15 @@ import java.util.Optional;
 @Service
 public class CustomUserServiceImpl implements UserDetailsService {
 
-    private final AccountRepository appUserRepository;
+    private final UserRepository appUserRepository;
 
-    public CustomUserServiceImpl(AccountRepository appUserRepository) {
+    public CustomUserServiceImpl(UserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        Optional<Account> appUser = appUserRepository.findByPhoneNumber(username);
+    public UserDetails loadUserByUsername(String phoneNumber) {
+        Optional<User> appUser = appUserRepository.findByPhoneNumber(phoneNumber);
         if (!appUser.isPresent()) {
             try {
                 throw new Exception("user not found");
@@ -27,7 +27,7 @@ public class CustomUserServiceImpl implements UserDetailsService {
                 throw new RuntimeException(e);
             }
         }
-        return new AccountDetailsImpl(appUser.get());
+        return new UserDetailImpl(appUser.get());
     }
 
 }

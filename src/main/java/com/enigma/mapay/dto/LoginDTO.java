@@ -1,6 +1,6 @@
 package com.enigma.mapay.dto;
 
-import com.enigma.mapay.service.impl.AccountDetailsImpl;
+import com.enigma.mapay.service.impl.UserDetailImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,7 @@ public class LoginDTO {
     private List<String> roles;
     private String token;
 
-    public LoginDTO(AccountDetailsImpl user, String token) {
+    public LoginDTO(UserDetailImpl user, String token) {
         this.phoneNumber = user.getUsername();
         this.roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

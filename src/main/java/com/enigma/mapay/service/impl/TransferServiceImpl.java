@@ -33,7 +33,7 @@ public class TransferServiceImpl implements TransferService {
             throw new DataNotFoundException("Receiver does not exist");
         }
 //      Check if the sender is trying to transfer to themselves
-        if(sender.getPhoneNumb().equals(receiver.getPhoneNumb())){
+        if(sender.getPhoneNumber().equals(receiver.getPhoneNumber())){
             throw new IllegalArgumentException("Sender cannot transfer to themselves");
         }
 
@@ -52,7 +52,7 @@ public class TransferServiceImpl implements TransferService {
 
         // Set the Transfer's sender and receiver
         transfer.setUser(sender);
-        transfer.getTransferDetail().setTransferTo(receiver.getPhoneNumb());
+        transfer.getTransferDetail().setTransferTo(receiver.getPhoneNumber());
 
         // Save Transfer and TransferDetail
         Transfer savedTransfer = transferRepository.save(transfer);

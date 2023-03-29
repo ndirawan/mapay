@@ -1,6 +1,6 @@
 package com.enigma.mapay.controller;
 
-import com.enigma.mapay.dto.AccountDTO;
+import com.enigma.mapay.dto.UserDTO;
 import com.enigma.mapay.dto.AuthRequest;
 import com.enigma.mapay.dto.LoginDTO;
 import com.enigma.mapay.service.AuthService;
@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthRequest authRequest){
-        AccountDTO register = authService.register(authRequest);
+        UserDTO register = authService.register(authRequest);
         Response<?> response = new Response<>("Successfuly create new user", register);
 
         return ResponseEntity.status(HttpStatus.CREATED)

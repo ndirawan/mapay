@@ -1,10 +1,9 @@
 package com.enigma.mapay.service.impl;
 
 import com.enigma.mapay.dto.*;
-import com.enigma.mapay.entity.Account;
 import com.enigma.mapay.entity.Role;
 import com.enigma.mapay.entity.User;
-import com.enigma.mapay.repository.AccountRepository;
+import com.enigma.mapay.repository.UserRepository;
 import com.enigma.mapay.security.JwtUtils;
 import com.enigma.mapay.service.AuthService;
 import com.enigma.mapay.service.RoleService;
@@ -25,7 +24,7 @@ import java.util.Collections;
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private AccountRepository accountRepository;
+    private UserRepository userRepository;
     private AuthenticationManager authenticationManager;
     private PasswordEncoder passwordEncoder;
     private JwtUtils jwtUtils;
@@ -34,12 +33,11 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public AccountDTO register(AuthRequest account) {
+    public UserDTO register(AuthRequest user) {
         Role role = roleService.getOrSave(ERole.ROLE_USER);
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        Account userSaved = accountRepository.save(new Account(null, account.getPhoneNumber(), account.getPassword(),
-                new ArrayList<>(Collections.singleton(role))));
-        return new AccountDTO(userSaved);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User userSaved = userRepository.save(new User(null,user.getEmail(),user.getPhoneNumber(),user.getFullName(),user.getAddress(),user.getBirthDate(),user.getStatus(),user.getPassword(),new ArrayList<>(Collections.singleton(role)),user.getBalance(),user.getMapay_point()));
+        return new UserDTO(userSaved);
     }
 
     @Override
@@ -51,8 +49,8 @@ public class AuthServiceImpl implements AuthService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        AccountDetailsImpl accountDetails = (AccountDetailsImpl) authentication.getPrincipal();
-        String token = jwtUtils.generateTokenFromUsername(accountDetails.getUsername());
-        return new LoginDTO(accountDetails, token);
+        UserDetailImpl userDetail = (UserDetailImpl) authentication.getPrincipal();
+        String token = jwtUtils.generateTokenFromUsername(userDetail.getUsername());
+        return new LoginDTO(userDetail, token);
     }
 }
