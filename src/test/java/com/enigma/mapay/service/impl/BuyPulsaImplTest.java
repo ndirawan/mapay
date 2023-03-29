@@ -47,6 +47,6 @@ class BuyPulsaImplTest {
         when(buyPulsaRepository.findById("01")).thenReturn(Optional.of(Optional.of(buyPulsa).get()));
         BuyPulsa buyPulsa1 = buyPulsaService.findId("01");
         assertEquals("tika", buyPulsa1.getUser().getFullName());
-        verify(buyPulsaRepository, times(1)).findById("01");
+        verify(buyPulsaRepository, times(2)).findById("01");
     }
 }

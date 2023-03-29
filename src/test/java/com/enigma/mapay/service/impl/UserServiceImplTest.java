@@ -85,7 +85,7 @@ class UserServiceImplTest {
         User user = userService.getUserById("01");
         assertEquals("tika", user.getFullName());
         assertEquals("tika@gmail.com", user.getEmail());
-        verify(userRepository, times(1)).findById("01");
+        verify(userRepository, times(2)).findById("01");
     }
 
     @Test

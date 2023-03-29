@@ -22,7 +22,7 @@ class TopupDetailServiceImplTest {
 
     @Test
     void saveTopupDetail() {
-        TopupDetail topupDetail = new TopupDetail("01", 100000000, "transfer", new Topup(), "berhasil");
+        TopupDetail topupDetail = new TopupDetail("01", 100000000, "transfermn", "berhasil");
         when(topupDetailRepository.save(topupDetail)).thenReturn(topupDetail);
         TopupDetail savedTopupDetail = topupDetailService.saveTopupDetail(topupDetail);
         assertNotNull(savedTopupDetail);

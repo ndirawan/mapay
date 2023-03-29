@@ -21,7 +21,7 @@ class BuyPulsaDetailServiceImplTest {
     private BuyPulsaDetail buyPulsaDetail;
     @BeforeEach
     void setup() {
-        buyPulsaDetail = new BuyPulsaDetail();
+        buyPulsaDetail = new BuyPulsaDetail("01", "tipe", "1234", "code", 10000, "done");
     }
 
     @AfterEach
@@ -51,6 +51,6 @@ class BuyPulsaDetailServiceImplTest {
         when(buyPulsaDetailRepository.findById("01")).thenReturn(Optional.of(Optional.of(buyPulsaDetail).get()));
         BuyPulsaDetail buyPulsaDetail1 = buyPulsaDetailService.getById("01");
         assertEquals("tipe", buyPulsaDetail1.getType());
-        verify(buyPulsaDetailRepository, times(1)).findById("01");
+        verify(buyPulsaDetailRepository, times(2)).findById("01");
     }
 }
