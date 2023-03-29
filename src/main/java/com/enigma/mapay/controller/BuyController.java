@@ -5,6 +5,7 @@ import com.enigma.mapay.entity.BuyPulsa;
 import com.enigma.mapay.entity.BuyPulsaDetail;
 import com.enigma.mapay.entity.User;
 import com.enigma.mapay.service.*;
+import com.enigma.mapay.utils.constant.ApiUrlConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("buy")
+@RequestMapping(ApiUrlConstant.BUY_PATH)
 @AllArgsConstructor
 public class BuyController {
     BuyPulsaService service;
