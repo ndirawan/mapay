@@ -8,7 +8,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(ApiUrlConstant.MIOBILEPULSA_PATH)
+@RequestMapping(ApiUrlConstant.MOBILEPULSA_PATH)
 @AllArgsConstructor
 public class MobilePulsaController {
     MobilePulsaService mobilePulsaService;

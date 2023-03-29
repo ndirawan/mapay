@@ -4,6 +4,7 @@ import com.enigma.mapay.entity.TransferDetail;
 import com.enigma.mapay.repository.TransferDetailRepository;
 import com.enigma.mapay.utils.exception.DataNotFoundException;
 import lombok.AllArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ public class TransferDetailService implements com.enigma.mapay.service.TransferD
     TransferDetailRepository transferDetailRepository;
 
     @Override
+
     public TransferDetail saveTransferDetail(TransferDetail transferDetail) {
         return transferDetailRepository.save(transferDetail);
     }
     @Override
+
     public TransferDetail getById(String id) {
         try {
             if (transferDetailRepository.findById(id).isPresent()){

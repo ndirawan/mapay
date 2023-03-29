@@ -5,6 +5,7 @@ import com.enigma.mapay.repository.UserRepository;
 import com.enigma.mapay.service.UserService;
 import com.enigma.mapay.utils.constant.MessageConstant;
 import com.enigma.mapay.utils.exception.DataNotFoundException;
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,13 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
+    @SentrySpan
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
     @Override
+    @SentrySpan
     public User updateUser(User user) {
         if (userRepository.findById(user.getId()).isPresent()){
             return saveUser(user);
@@ -31,6 +34,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
+    @SentrySpan
     public User getUserById(String id) {
         try {
             if (userRepository.findById(id).isPresent()){
@@ -44,16 +48,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @SentrySpan
     public User getUserByPhoneNumb(String phone) {
         return userRepository.findByPhoneNumb(phone);
     }
 
     @Override
+    @SentrySpan
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
     @Override
+    @SentrySpan
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }

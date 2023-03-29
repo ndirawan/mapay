@@ -19,6 +19,7 @@ public class TransferServiceImpl implements TransferService {
     UserService userService;
     TransferDetailService transferDetailService;
     @Override
+
     public Transfer saveTransfer(Transfer transfer) {
         User sender = userService.getUserById(transfer.getUser().getId());
         User receiver = userService.getUserByPhoneNumb(transfer.getTransferDetail().getTransferTo());
@@ -62,11 +63,13 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
+
     public List<Transfer> getAllTransfer() {
         return transferRepository.findAll();
     }
 
     @Override
+
     public Transfer getTransferById(String id) {
         try {
             if (transferRepository.findById(id).isPresent()){
