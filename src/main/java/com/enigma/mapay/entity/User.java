@@ -1,5 +1,6 @@
 package com.enigma.mapay.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,8 +29,6 @@ public class User {
     private String fullName;
     private String address;
     private Date birthDate;
-    @Column(nullable = true)
-    private String profilePicture;
     private Integer status;
     private Integer balance = 0;
     private Integer mapay_point = 0;

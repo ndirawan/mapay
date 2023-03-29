@@ -30,7 +30,7 @@ import java.util.UUID;
 public class UserController {
     UserService userService;
 
-    private static final String UPLOAD_DIR = "./src/main/resources/profile";
+//    private static final String UPLOAD_DIR = "./src/main/resources/profile";
 
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) throws IOException {
@@ -74,7 +74,7 @@ public class UserController {
 //            Files.copy(photo.getInputStream(), filePath);
 //            user.setProfilePicture(fileName);
 //        }
-//        user.setAddress(address);
+////        user.setAddress(address);
         return ResponseEntity.ok(userService.saveUser(user));
     }
 
