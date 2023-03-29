@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @SentrySpan
     public User saveUser(User user) {
+
         return userRepository.save(user);
     }
 

@@ -8,4 +8,5 @@ public class ApiUrlConstant {
     public static final String MOBILEPULSA_PATH = "/purchases";
     public static final String BUY_PATH = "/transaction/buy";
     public static final String SPLIT_BILL_PATH = "/transaction/split";
+    public static final String UPLOAD_PATH = "/upload";
 }

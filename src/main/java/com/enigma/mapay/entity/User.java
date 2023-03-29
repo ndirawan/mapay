@@ -32,4 +32,5 @@ public class User {
     private Integer status;
     private Integer balance = 0;
     private Integer mapay_point = 0;
+
 }
