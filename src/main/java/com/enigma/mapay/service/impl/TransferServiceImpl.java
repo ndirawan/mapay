@@ -6,18 +6,17 @@ import com.enigma.mapay.service.TransferService;
 import com.enigma.mapay.service.UserService;
 import com.enigma.mapay.utils.exception.DataNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @AllArgsConstructor
+@Slf4j
 public class TransferServiceImpl implements TransferService {
 
     TransferRepository transferRepository;
-
     UserService userService;
-
     TransferDetailService transferDetailService;
     @Override
     public Transfer saveTransfer(Transfer transfer) {
@@ -69,6 +68,14 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public Transfer getTransferById(String id) {
-        return transferRepository.findById(id).get();
+        try {
+            if (transferRepository.findById(id).isPresent()){
+                return transferRepository.findById(id).get();
+            }else throw new DataNotFoundException("DATA NOT FOUND");
+        }catch (DataNotFoundException e){
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+        return null;
     }
 }

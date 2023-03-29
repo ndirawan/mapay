@@ -21,7 +21,6 @@ public class SecurityConfiguration {
     private final AuthTokenFilter authTokenFilter;
     private final AuthEntryPoint authEntryPoint;
 
-
     @Autowired
     public SecurityConfiguration(AuthTokenFilter authTokenFilter, AuthEntryPoint authEntryPoint) {
         this.authTokenFilter = authTokenFilter;

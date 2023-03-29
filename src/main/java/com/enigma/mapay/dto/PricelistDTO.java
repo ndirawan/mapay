@@ -3,7 +3,7 @@ package com.enigma.mapay.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Data
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class PricelistDTO {
     @JsonProperty("pulsa_details")
     private String pulsaDetail;
     @JsonProperty("pulsa_price")
-    private Long pulsaPrice;
+    private Integer pulsaPrice;
     @JsonProperty("pulsa_type")
     private String pulsaType;
     @JsonProperty("masaaktif")

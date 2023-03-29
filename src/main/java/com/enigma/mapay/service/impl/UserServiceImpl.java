@@ -6,18 +6,19 @@ import com.enigma.mapay.service.UserService;
 import com.enigma.mapay.utils.constant.MessageConstant;
 import com.enigma.mapay.utils.exception.DataNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
     public User saveUser(User user) {
-
         return userRepository.save(user);
     }
 
@@ -29,10 +30,17 @@ public class UserServiceImpl implements UserService {
             throw new DataNotFoundException(MessageConstant.MESSAGE_UPDATE+ user.getId());
         }
     }
-
     @Override
     public User getUserById(String id) {
-        return userRepository.findById(id).get();
+        try {
+            if (userRepository.findById(id).isPresent()){
+                return userRepository.findById(id).get();
+            }else throw new DataNotFoundException("DATA NOT FOUND");
+        }catch (DataNotFoundException e){
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
     @Override

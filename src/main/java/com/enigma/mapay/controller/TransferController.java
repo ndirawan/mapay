@@ -1,6 +1,5 @@
 package com.enigma.mapay.controller;
 
-import com.enigma.mapay.entity.Topup;
 import com.enigma.mapay.entity.Transfer;
 import com.enigma.mapay.service.TransferService;
 import com.enigma.mapay.utils.constant.ApiUrlConstant;

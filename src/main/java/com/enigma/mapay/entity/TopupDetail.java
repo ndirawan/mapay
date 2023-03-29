@@ -22,10 +22,6 @@ public class TopupDetail {
     private String id;
     private Integer amount;
     private String methode;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "topup_id")
-    @JsonIgnoreProperties("topupDetail")
-    private Topup topup;
     private String status;
 
 }

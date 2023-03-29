@@ -1,51 +1,53 @@
 package com.enigma.mapay.service.impl;
 
-import com.enigma.mapay.dto.TopupDTO;
-import com.enigma.mapay.dto.TopupDetailDTO;
+import com.enigma.mapay.dto.MidtransTrxResponse;
+import com.enigma.mapay.config.MidtransConfig;
 import com.enigma.mapay.entity.Topup;
-import com.enigma.mapay.entity.TopupDetail;
 import com.enigma.mapay.entity.User;
-import com.enigma.mapay.repository.TopupDetailRepository;
 import com.enigma.mapay.repository.TopupRepository;
-import com.enigma.mapay.service.TopupDetailService;
-import com.enigma.mapay.service.TopupService;
-import com.enigma.mapay.service.UserService;
+import com.enigma.mapay.service.*;
+import com.midtrans.httpclient.error.MidtransError;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpMethod;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class TopupServiceImpl implements TopupService {
 
     TopupRepository topupRepository;
-
     UserService userService;
-
     TopupDetailService topupDetailService;
+    MidtransConfig midtransConfig;
 
     @Override
-    public Topup saveTopup(Topup topup) {
+    public MidtransTrxResponse saveTopup(Topup topup) throws MidtransError {
+        Map<String, Object> params = new HashMap<>();
+        Map<String, String> transactionDetails = new HashMap<>();
+
         User user = userService.getUserById(topup.getUser().getId());
-        user.setBalance(user.getBalance() + topup.getTopupDetail().getAmount());
-
         topup.setUser(user);
-        TopupDetail td = topupDetailService.saveTopupDetail(topup.getTopupDetail());
         Topup result = topupRepository.save(topup);
-        td.setTopup(result);
 
-        topupDetailService.saveTopupDetail(td);
+        transactionDetails.put("order_id", result.getId());
+        transactionDetails.put("gross_amount", topup.getTopupDetail().getAmount().toString());
+        params.put("transaction_details", transactionDetails);
+        midtransConfig.snapApi().createTransaction(params);
 
-        return result;
+        String token = midtransConfig.snapApi().createTransactionToken(params);
+        String redirectUrl = midtransConfig.snapApi().createTransactionRedirectUrl(params);
+
+        MidtransTrxResponse trxResponse = new MidtransTrxResponse();
+        trxResponse.setToken(token);
+        trxResponse.setRedirectUrl(redirectUrl);
+
+        return trxResponse;
     }
+
     @Override
     public List<Topup> getAllTopUp() {
         return topupRepository.findAll();

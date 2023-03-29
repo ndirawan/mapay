@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ApiDTO {
+public class BuyPulsaDTO {
     @JsonProperty("ref_id")
     private String refId;
     @JsonProperty("status")

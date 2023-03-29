@@ -1,11 +1,10 @@
 package com.enigma.mapay.service;
 
-import com.enigma.mapay.apiTransaction.response.TopUpResponse;
+import com.enigma.mapay.dto.TopUpResponse;
 import com.enigma.mapay.entity.BuyPulsa;
-
-import javax.security.auth.callback.Callback;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface BuyPulsaService {
-    void savePulsa(BuyPulsa buyPulsa, CallbackApi callbackApi) throws InterruptedException;
+    TopUpResponse savePulsa(BuyPulsa buyPulsa) throws JsonProcessingException;
     BuyPulsa findId(String id);
 }

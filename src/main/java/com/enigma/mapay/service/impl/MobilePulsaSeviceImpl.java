@@ -3,27 +3,21 @@ package com.enigma.mapay.service.impl;
 import com.enigma.mapay.utils.constant.ApiUrlConstant;
 import com.enigma.mapay.utils.constant.Commands;
 import com.enigma.mapay.utils.constant.Status;
-import com.enigma.mapay.apiTransaction.request.ApiRequest;
-import com.enigma.mapay.apiTransaction.response.PricelistResponse;
-import com.enigma.mapay.apiTransaction.response.TopUpResponse;
-import com.enigma.mapay.service.ApiService;
+import com.enigma.mapay.dto.ApiRequest;
+import com.enigma.mapay.dto.TopUpResponse;
+import com.enigma.mapay.service.MobilePulsaService;
 import com.enigma.mapay.utils.SignUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ApiSeviceImpl implements ApiService {
+@AllArgsConstructor
+public class MobilePulsaSeviceImpl implements MobilePulsaService {
     RestTemplate restTemplate;
     HttpHeaders headers;
     SignUtils signUtils;
-    @Autowired
-    public ApiSeviceImpl(RestTemplate restTemplate, HttpHeaders headers, SignUtils signUtils) {
-        this.restTemplate = restTemplate;
-        this.headers = headers;
-        this.signUtils = signUtils;
-    }
 
     private ApiRequest createApi(String commands, String refId){
         ApiRequest apiRequest1 = new ApiRequest();
@@ -46,13 +40,13 @@ public class ApiSeviceImpl implements ApiService {
     }
 
     @Override
-    public ResponseEntity<PricelistResponse> pricelist(String type, String operator) {
+    public ResponseEntity<String> pricelist(String type, String operator) {
         ApiRequest apiRequest = createApi(Commands.PRICELIST, "pl");
         apiRequest.setStatus(Status.STATUS_ACTIVE);
         String url = ApiUrlConstant.URL_API + "/" + type + "/" + operator;
         HttpEntity<ApiRequest> requestEntity = new HttpEntity<>(apiRequest, headers);
 
-        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, PricelistResponse.class);
+        return restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
     }
 

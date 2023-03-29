@@ -3,7 +3,6 @@ package com.enigma.mapay.controller;
 import com.enigma.mapay.dto.AccountDTO;
 import com.enigma.mapay.dto.AuthRequest;
 import com.enigma.mapay.dto.LoginDTO;
-import com.enigma.mapay.entity.User;
 import com.enigma.mapay.service.AuthService;
 import com.enigma.mapay.utils.customResponds.Response;
 import lombok.AllArgsConstructor;
@@ -30,7 +29,6 @@ public class AuthController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
         LoginDTO loginDTO = authService.login(authRequest);

@@ -1,11 +1,10 @@
-package com.enigma.mapay.apiTransaction.response;
+package com.enigma.mapay.dto;
 
-import com.enigma.mapay.dto.ApiDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class TopUpResponse {
     @JsonProperty("data")
-    private ApiDTO apiDTO;
+    private BuyPulsaDTO buyPulsaDTO;
 }

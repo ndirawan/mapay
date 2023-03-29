@@ -1,10 +1,11 @@
-package com.enigma.mapay.apiTransaction.response;
+package com.enigma.mapay.dto;
 
-import com.enigma.mapay.dto.PricelistDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 @Data
 public class PricelistResponse {
+    @JsonProperty("data")
     private List<PricelistDTO> data;
 }
