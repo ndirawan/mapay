@@ -1,80 +1,25 @@
 package com.enigma.mapay.controller;
 
-
 import com.enigma.mapay.entity.User;
 import com.enigma.mapay.service.UserService;
 import com.enigma.mapay.utils.constant.ApiUrlConstant;
+import com.enigma.mapay.utils.exception.DataNotFoundException;
 import lombok.AllArgsConstructor;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.jws.soap.SOAPBinding;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(ApiUrlConstant.USER_PATH)
 @AllArgsConstructor
 public class UserController {
     UserService userService;
-
-//    private static final String UPLOAD_DIR = "./src/main/resources/profile";
-
+    private PasswordEncoder passwordEncoder;
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) throws IOException {
-//        @RequestParam("fullName") String name,
-//        @RequestParam("email") String email,
-//        @RequestParam("phoneNumb") String phone,
-//        @RequestParam("address") String address,
-//        @RequestParam("status") Integer status,
-//        @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-mm-dd") Date birthdate,
-//        @RequestParam(value = "profilePicture", required = false, MultipartFile photo)
-
-//        User user = new User();
-//        user.setEmail(email);
-//        user.setPhoneNumb(phone);
-//        user.setFullName(name);
-//        user.setAddress(address);
-//        user.setBirthDate(birthdate);
-//        user.setStatus(status);
-//        if (photo != null && !photo.isEmpty()) {
-//            // Check file type
-//            String fileType = photo.getContentType();
-//            if (!fileType.equals("image/png") && !fileType.equals("image/jpeg")) {
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//            }
-//            // Generate random characters
-//            String randomChars = UUID.randomUUID().toString().substring(0, 5);
-//            // Get current date
-//            LocalDate currentDate = LocalDate.now();
-//            // Construct file name with format: yyyyMMdd_name_randomChars
-//            String fileName = currentDate.format(DateTimeFormatter.ofPattern("yyyy-mm-dd")) + "_" + name + "_" + randomChars;
-//            // Get extension of uploaded file
-//            String fileExtension = FilenameUtils.getExtension(photo.getOriginalFilename());
-//            // Add extension to file name
-//            fileName += "." + fileExtension;
-//            // Get upload path
-//            Path uploadPath = Paths.get(UPLOAD_DIR);
-//            if (!Files.exists(uploadPath)) {
-//                Files.createDirectories(uploadPath);
-//            }
-//            Path filePath = uploadPath.resolve(fileName);
-//            Files.copy(photo.getInputStream(), filePath);
-//            user.setProfilePicture(fileName);
-//        }
-////        user.setAddress(address);
         return ResponseEntity.ok(userService.saveUser(user));
     }
 
@@ -88,9 +33,40 @@ public class UserController {
         return userService.getAllUser();
     }
 
-    @PutMapping
-    public User updateUser(@RequestBody User user){
-        return userService.updateUser(user);
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable String id,@RequestBody User user){
+        Optional<User> existingUser = Optional.ofNullable(userService.getUserById(id));
+        if (existingUser.isPresent()) {
+            User user1 = existingUser.get();
+            if (user.getPhoneNumber() != null) {
+                user1.setPhoneNumber(user.getPhoneNumber());
+            }
+            if (user.getAddress() != null) {
+                user1.setAddress(user.getAddress());
+            }
+            if (user.getEmail() != null) {
+                user1.setEmail(user.getEmail());
+            }
+            if (user.getFullName() != null) {
+                user1.setFullName(user.getFullName());
+            }
+            if (user.getBirthDate() != null) {
+                user1.setBirthDate(user.getBirthDate());
+            }
+            if (user.getStatus() != null) {
+                user1.setStatus(user.getStatus());
+            }
+            if (user.getPassword() != null) {
+                user1.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            if (user.getRoles() != null) {
+                user1.setRoles(user.getRoles());
+            }
+
+            return userService.updateUser(user1);
+        } else {
+            throw new DataNotFoundException("User not found with id " + id);
+        }
     }
 
     @DeleteMapping("/{id}")
