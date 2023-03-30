@@ -24,7 +24,7 @@ class UserServiceImplTest {
     private User user;
     @BeforeEach
     void setup() {
-        user = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0);
+        user = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0);
     }
 
     @AfterEach
@@ -40,7 +40,7 @@ class UserServiceImplTest {
 
     @Test
     void saveUser() {
-        User user = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0);
+        User user = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0);
         when(userRepository.save(user)).thenReturn(user);
         User savedUser = userService.saveUser(user);
         assertNotNull(savedUser);
@@ -91,8 +91,8 @@ class UserServiceImplTest {
     @Test
     void getAllUser() {
         List<User> listOfUser = new ArrayList<>();
-        User user = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0);
-        User user1 = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0);
+        User user = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0);
+        User user1 = new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0);
         listOfUser.add(user);
         listOfUser.add(user1);
 

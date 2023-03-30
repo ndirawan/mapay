@@ -28,7 +28,7 @@ class TopupServiceImplTest {
     private Topup topup;
     @BeforeEach
     void setup() {
-        topup = new Topup("01", LocalDateTime.now(),new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0), new TopupDetail());
+        topup = new Topup("01", LocalDateTime.now(),new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0), new TopupDetail());
     }
 
     @AfterEach
@@ -48,8 +48,8 @@ class TopupServiceImplTest {
     @Test
     void getAllTopUp() {
         List<Topup> listOfTopup = new ArrayList<>();
-        Topup topup = new Topup("01", LocalDateTime.now(),new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0), new TopupDetail());
-        Topup topup1 = new Topup("02", LocalDateTime.now(),new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0), new TopupDetail());
+        Topup topup = new Topup("01", LocalDateTime.now(),new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0), new TopupDetail());
+        Topup topup1 = new Topup("02", LocalDateTime.now(),new User("02", "tikaa@gmail.com", "0821654717356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0), new TopupDetail());
         listOfTopup.add(topup);
         listOfTopup.add(topup1);
 

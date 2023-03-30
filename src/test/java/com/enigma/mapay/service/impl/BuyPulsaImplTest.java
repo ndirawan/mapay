@@ -24,7 +24,7 @@ class BuyPulsaImplTest {
     private BuyPulsa buyPulsa;
     @BeforeEach
     void setup() {
-        buyPulsa = new BuyPulsa("01", LocalDateTime.now(), new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,1,0,0), new BuyPulsaDetail());
+        buyPulsa = new BuyPulsa("01", LocalDateTime.now(), new User("01", "tika@gmail.com", "082165417356", "tika", "jakarta", Date.valueOf("1999-10-10"),null,"1",null,0, 0), new BuyPulsaDetail());
     }
 
     @AfterEach
