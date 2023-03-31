@@ -20,7 +20,6 @@ public class TransferDetailService implements com.enigma.mapay.service.TransferD
         return transferDetailRepository.save(transferDetail);
     }
     @Override
-
     public TransferDetail getById(String id) {
         try {
             if (transferDetailRepository.findById(id).isPresent()){

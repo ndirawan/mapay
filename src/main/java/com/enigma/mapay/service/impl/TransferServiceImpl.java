@@ -9,6 +9,7 @@ import com.enigma.mapay.utils.exception.DataNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
@@ -20,6 +21,7 @@ public class TransferServiceImpl implements TransferService {
     UserService userService;
     TransferDetailService transferDetailService;
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Transfer saveTransfer(Transfer transfer) {
         User sender = userService.getUserById(transfer.getUser().getId());
         User receiver = userService.getUserByPhoneNumb(transfer.getTransferDetail().getTransferTo());
