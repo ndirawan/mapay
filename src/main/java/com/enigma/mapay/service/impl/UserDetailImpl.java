@@ -53,7 +53,7 @@ public class UserDetailImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return fullName;
+        return phoneNumber;
     }
 
     @Override

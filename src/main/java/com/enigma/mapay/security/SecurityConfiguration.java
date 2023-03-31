@@ -44,9 +44,9 @@ public class SecurityConfiguration {
                         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                         .authorizeRequests()
                         .antMatchers("/auth/**").permitAll()
-                        .antMatchers("/upload").permitAll()
-//                        .anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                        .antMatchers("/users").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+//                        .anyRequest().permitAll()
                         .and().addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
                 return http.build();

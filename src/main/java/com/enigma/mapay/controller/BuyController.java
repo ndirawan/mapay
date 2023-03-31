@@ -9,10 +9,7 @@ import com.enigma.mapay.utils.constant.ApiUrlConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(ApiUrlConstant.BUY_PATH)
@@ -20,10 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class BuyController {
     BuyPulsaService service;
     UserService userService;
+    MobilePulsaService mobilePulsaService;
 
     @PostMapping
     public TopUpResponse buyPulsa(@RequestBody BuyPulsa buyPulsa) throws JsonProcessingException {
         return service.savePulsa(buyPulsa);
+    }
+    @PostMapping("/pricelist")
+    public ResponseEntity<String> priceList(@RequestParam String type,
+                                            @RequestParam String operator) {
+        return mobilePulsaService.pricelist(type,operator);
+    }
+    @PostMapping("/{refId}")
+    public ResponseEntity<TopUpResponse> cekStatus(@PathVariable String refId){
+        return mobilePulsaService.topUpStatus(refId);
     }
 
     @PostMapping("/callback")

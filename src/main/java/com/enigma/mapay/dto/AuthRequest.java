@@ -23,8 +23,4 @@ public class AuthRequest {
     private Integer mapay_point = 0;
 
 
-
-
-
-
 }
