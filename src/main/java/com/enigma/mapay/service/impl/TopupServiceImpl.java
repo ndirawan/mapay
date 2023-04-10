@@ -29,8 +29,6 @@ public class TopupServiceImpl implements TopupService {
         Map<String, Object> params = new HashMap<>();
         Map<String, String> transactionDetails = new HashMap<>();
 
-        User user = userService.getUserById(topup.getUser().getId());
-        topup.setUser(user);
         Topup result = topupRepository.save(topup);
 
         transactionDetails.put("order_id", result.getId());
@@ -49,8 +47,8 @@ public class TopupServiceImpl implements TopupService {
     }
 
     @Override
-    public List<Topup> getAllTopUp() {
-        return topupRepository.findAll();
+    public List<Topup> getAllTopUp(String id) {
+        return topupRepository.findTopupByUserPhoneNumber(id).get();
     }
 
     @Override

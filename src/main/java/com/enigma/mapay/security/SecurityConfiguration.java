@@ -45,6 +45,8 @@ public class SecurityConfiguration {
                         .authorizeRequests()
                         .antMatchers("/auth/**").permitAll()
                         .antMatchers("/users").hasRole("ADMIN")
+                        .antMatchers("/transaction/topup/notification").permitAll()
+                        .antMatchers("/transaction/buy/callback").permitAll()
                         .anyRequest().authenticated()
 //                        .anyRequest().permitAll()
                         .and().addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);

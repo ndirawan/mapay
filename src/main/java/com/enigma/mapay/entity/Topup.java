@@ -1,5 +1,6 @@
 package com.enigma.mapay.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Topup {
     private LocalDateTime date;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "topup_detail_id")

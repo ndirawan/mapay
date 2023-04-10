@@ -10,7 +10,7 @@ public interface TopupService {
 
     MidtransTrxResponse saveTopup(Topup topup) throws MidtransError;
 
-    List<Topup> getAllTopUp();
+    List<Topup> getAllTopUp(String id);
 
     Topup getTopupById(String id);
 }

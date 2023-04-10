@@ -23,14 +23,10 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Transfer saveTransfer(Transfer transfer) {
-        User sender = userService.getUserById(transfer.getUser().getId());
+        User sender = transfer.getUser();
         User receiver = userService.getUserByPhoneNumb(transfer.getTransferDetail().getTransferTo());
         try {
-
-//      Check if the sender exists
-            if (sender == null) {
-                throw new DataNotFoundException("Sender does not exist");
-            }
+            
 //      Check if the receiver exists
             if (receiver == null) {
                 throw new DataNotFoundException("Receiver does not exist");

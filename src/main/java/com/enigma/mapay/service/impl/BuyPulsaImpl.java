@@ -29,8 +29,7 @@ public class BuyPulsaImpl implements BuyPulsaService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public TopUpResponse savePulsa(BuyPulsa buyPulsa) throws JsonProcessingException {
-        User user = userService.getUserById(buyPulsa.getUser().getId());
-        buyPulsa.setUser(user);
+        User user = buyPulsa.getUser();
         BuyPulsa result = buyPulsaRepository.save(buyPulsa);
         BuyPulsaDetail detail = result.getBuyDetail();
         String reference = mobilePulsaService.pricelist(buyPulsa.getBuyDetail().getType(), "").getBody();

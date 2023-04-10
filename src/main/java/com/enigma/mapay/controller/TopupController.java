@@ -5,14 +5,17 @@ import com.enigma.mapay.config.MidtransConfig;
 import com.enigma.mapay.entity.Topup;
 import com.enigma.mapay.entity.TopupDetail;
 import com.enigma.mapay.entity.User;
+import com.enigma.mapay.security.JwtUtils;
 import com.enigma.mapay.service.TopupDetailService;
 import com.enigma.mapay.service.TopupService;
 import com.enigma.mapay.service.UserService;
+import com.enigma.mapay.service.impl.UserDetailImpl;
 import com.enigma.mapay.utils.constant.ApiUrlConstant;
 import com.midtrans.httpclient.error.MidtransError;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,18 +30,23 @@ public class TopupController {
     MidtransConfig midtransConfig;
     TopupDetailService detailService;
     UserService userService;
+    JwtUtils jwtUtils;
 
     @PostMapping
-    public MidtransTrxResponse saveTopup(@RequestBody Topup topup) throws MidtransError{
+    public MidtransTrxResponse saveTopup(@RequestBody Topup topup, Authentication authentication) throws MidtransError{
+        UserDetailImpl userDetail = (UserDetailImpl) authentication.getPrincipal();
+        topup.setUser(userService.getUserByPhoneNumb(userDetail.getUsername()));
         return topupService.saveTopup(topup);
     }
     @GetMapping
-    public List<Topup> getAllTopup(){
-        return topupService.getAllTopUp();
+    public List<Topup> getAllTopup(Authentication authentication){
+        UserDetailImpl userDetail = (UserDetailImpl) authentication.getPrincipal();
+        return topupService.getAllTopUp(userDetail.getUsername());
     }
 
     @GetMapping("/{id}")
     public Topup findById(@PathVariable String id){
+
         return topupService.getTopupById(id);
     }
 

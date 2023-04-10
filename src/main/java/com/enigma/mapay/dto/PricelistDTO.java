@@ -27,5 +27,6 @@ public class PricelistDTO {
     private String pulsaType;
     @JsonProperty("masaaktif")
     private String masaaktif;
-
+    @JsonProperty("pulsa_category")
+    private String category;
 }

@@ -5,10 +5,12 @@ import com.enigma.mapay.entity.BuyPulsa;
 import com.enigma.mapay.entity.BuyPulsaDetail;
 import com.enigma.mapay.entity.User;
 import com.enigma.mapay.service.*;
+import com.enigma.mapay.service.impl.UserDetailImpl;
 import com.enigma.mapay.utils.constant.ApiUrlConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +22,9 @@ public class BuyController {
     MobilePulsaService mobilePulsaService;
 
     @PostMapping
-    public TopUpResponse buyPulsa(@RequestBody BuyPulsa buyPulsa) throws JsonProcessingException {
+    public TopUpResponse buyPulsa(@RequestBody BuyPulsa buyPulsa, Authentication authentication) throws JsonProcessingException {
+        UserDetailImpl userDetail = (UserDetailImpl) authentication.getPrincipal();
+        buyPulsa.setUser(userService.getUserByPhoneNumb(userDetail.getUsername()));
         return service.savePulsa(buyPulsa);
     }
     @PostMapping("/pricelist")
